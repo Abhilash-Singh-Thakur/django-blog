@@ -8,7 +8,7 @@ from blogs.models import Blog, Category
 class BlogAdmin(admin.ModelAdmin):
     prepopulated_fields={'slug' : ('title',)}
     # step 6 - list all the fields in the admin panel
-    list_display = ('title', 'category', 'author','featured_image','short_description','status', 'is_featured', 'updated_at')
+    list_display = ('title', 'author','status', 'category', 'is_featured', 'updated_at')
     # step 7 - create the search field and search by this category.
     search_fields = ('id', 'title', 'category__category_name','status')
     #step 8
