@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blogs',
     'ckeditor',
+    'assignments',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # context_prcessors dictionary configuration for all the categories in all the web page.
                 'blogs.context_processors.get_categories',
+                'blogs.context_processors.get_social_links',
+                
             ],
         },
     },
