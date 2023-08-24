@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -22,8 +23,8 @@ STATUS_CHOICES = (
 
 # step 2
 class Blog(models.Model):
-    title =  models.CharField(max_length=100)
-    slug = models.SlugField(max_length=150, unique=True, blank=True)
+    title =  models.CharField(max_length=1000)
+    slug = models.SlugField(max_length=1000, unique=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE) # means when we delete the category then the blog post of that category also will deleted. 
     author = models.ForeignKey(User, on_delete=models.CASCADE) # if user delete then all blog also get deleted.
     featured_image = models.ImageField(upload_to='upload/%y/%m/%d', height_field=None, width_field=None, max_length=None)
@@ -33,10 +34,11 @@ class Blog(models.Model):
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
 
-# step 3
-def __str_(self):
-    return self.title
+    # step 3
+    def __str_(self):
+        return self.title
 
 # run the command make migration and migrate.
 
