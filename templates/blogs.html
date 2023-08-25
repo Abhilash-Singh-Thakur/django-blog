@@ -23,8 +23,40 @@
                 <section class="mb-5">
                     <p class="fs-5 mb-4">{{single_blog.short_description | safe }}</p>
                     <p class="fs-5 mb-4">{{single_blog.blog_body | safe }}</p>
-
+                    <!-- Comments-->
+                    <h4>Comments ({{ comment_count }})</h4>
+                    {% if comments%}
+                        {% for comment in comments %}
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text mb-0">{{ comment }}</p>
+                                <hr class="mb-0 mt-0">
+                                    <span>
+                                        <small> By {{ comment.user }}</small>
+                                        <small>| {{ comment.created_at | timesince }} ago </small>
+                                    </span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                    <h6>No comments yet</h6>
+                    {% endif %}
+                    <br>
+                    <div class="form-group">
+                        {% if user.is_authenticated %}
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <textarea name="comment" class="form-control" placeholder="Write your comment"></textarea>
+                                <input type="submit" value="submit" class="btn btn-primary mt-2">
+                            </div>
+                        </form>
+                        {%else%}
+                        <p> Please <span><a href="{%url 'login' %}">login</a> to post the comment</span> </p>
+                        {% endif  %}
+                    </div>
                     </section>
+
             </article>
         </div>
         <!-- Side widgets-->
@@ -48,12 +80,12 @@
                 </div>
             </div>
             <!-- Side widget-->
-            {% if social_links %}        
+            {% if social_links %}    
             <div class="card mb-4 p-3">
                 <h4 class="font-italic">Follow Us</h4>
                 <ol class="list-unstyled">
-                    {% for i in social_links%}
-                    <li><a href="{{i.link}}" target='_blank'>{{i.platform}}</a></li>
+                    {% for i in social_links %}
+                    <li><a href="{{ i.link }}" target="_blank">{{ i.platform }}</a></li>
                     {% endfor %}
                 </ol>
             </div>
@@ -62,4 +94,4 @@
     </div>
 </div>
 
-{% endblock %}
+{% endblock %} 

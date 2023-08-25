@@ -81,7 +81,7 @@ def add_post(request):
             post.author = request.user # author field assign to the logged in user.
             post.save()
             title = form.cleaned_data['title'] # extract the value of title from post dict.
-            post.slug = slugify(title) + '-'+str(post.id)
+            post.slug = slugify(title) # + '-'+str(post.id)
             post.save()
             return redirect('posts')
     form = BlogPostForm()
@@ -156,9 +156,6 @@ def edit_user(request, pk):
         'form': form,
     }
     return render(request, 'dashboard/edit_user.html', context)
-
-
-
 
 
 def delete_user(request, pk):

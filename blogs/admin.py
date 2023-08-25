@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blogs.models import Blog, Category
+from blogs.models import Blog, Category, Comment
 
 # based on the title slug should be generated.
 
@@ -21,3 +21,4 @@ admin.site.register(Category)
 
 # step 5 add the BlogAdmin
 admin.site.register(Blog, BlogAdmin) # then register the blogAdmin in admin site.
+admin.site.register(Comment)

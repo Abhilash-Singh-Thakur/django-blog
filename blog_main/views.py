@@ -7,7 +7,7 @@ from django.contrib import auth
 
 def home(request):
     # step 9 : - to show all the category data into the display.
-    # categories = Category.objects.all()
+    categories = Category.objects.all()
     # step 10 : - query to filter the record as per the condition.
     featured_posts = Blog.objects.filter(is_featured=True,status='Published')
     posts = Blog.objects.filter(is_featured=False,status='Published')
@@ -21,7 +21,7 @@ def home(request):
         about = None
     
     context = {
-        # 'categories': categories,
+        'categories': categories,
         'featured_posts':featured_posts,
         'posts': posts,
         'about': about,

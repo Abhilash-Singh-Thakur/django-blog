@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from ckeditor.fields import RichTextField
-from django.utils.text import slugify
 
 # Create your models here.
 
@@ -28,8 +26,8 @@ class Blog(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE) # means when we delete the category then the blog post of that category also will deleted. 
     author = models.ForeignKey(User, on_delete=models.CASCADE) # if user delete then all blog also get deleted.
     featured_image = models.ImageField(upload_to='upload/%y/%m/%d', height_field=None, width_field=None, max_length=None)
-    short_description = RichTextField()
-    blog_body = RichTextField()
+    short_description = models.TextField(max_length= 2000, blank = True)
+    blog_body = models.TextField(max_length= 2000, blank = True)
     status = models.CharField(max_length=20,choices=STATUS_CHOICES, default='Draft')
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -43,3 +41,13 @@ class Blog(models.Model):
 # run the command make migration and migrate.
 
 
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # IF the user will deleted then the comment will also deleted.
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    comment = models.TextField(max_length=250)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+
+    def __str__(self):
+        return self.comment
